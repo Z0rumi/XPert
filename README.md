@@ -2,11 +2,11 @@
 Softwareprojekt aus der Vorlesung "Labor für Softwareprojekt und Project Skills" der Hochschule Heilbronn. Das Projekt beinhaltet eine Ruby on Rails Webapplikation zum Verwalten von Experten und Projekten.
 
 Entwickelt mit ❤️ von:
-  - Dilara
-  - Zümra
+  - Dilara Ergen
+  - Zümra Kurban
   - [Micha Aldinger](https://github.com/Z0rumi)
-  - Nick
-  - Marcel
+  - [Nick Megler] (https://github.com/NickMegler)
+  - Marcel Illenseer
 
 # Entwicklerhandbuch
 ## Techstack
