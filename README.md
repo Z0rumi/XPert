@@ -5,7 +5,7 @@ Entwickelt mit ❤️ von:
   - Dilara Ergen
   - Zümra Kurban
   - [Micha Aldinger](https://github.com/Z0rumi)
-  - [Nick Megler] (https://github.com/NickMegler)
+  - [Nick Megler](https://github.com/NickMegler)
   - Marcel Illenseer
 
 # Entwicklerhandbuch
