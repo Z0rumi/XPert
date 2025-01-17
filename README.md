@@ -1,6 +1,13 @@
 # XPert
 Softwareprojekt aus der Vorlesung "Labor für Softwareprojekt und Project Skills" der Hochschule Heilbronn. Das Projekt beinhaltet eine Ruby on Rails Webapplikation zum Verwalten von Experten und Projekten.
 
+Entwickelt mit ❤️ von:
+  - Dilara
+  - Zümra
+  - [Micha Aldinger](https://github.com/Z0rumi)
+  - Nick
+  - Marcel
+
 # Entwicklerhandbuch
 ## Techstack
 
