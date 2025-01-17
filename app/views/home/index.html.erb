@@ -1,0 +1,43 @@
+<body class="bg-gray-50" style="background-image: url('<%= asset_path('home.png') %>'); 
+            background-size: cover; 
+            background-position: center center; 
+            background-repeat: no-repeat;">
+
+  <div class="relative w-full h-screen flex flex-col items-center justify-center space-y-8 px-6">
+    <div class="relative z-10 text-center text-black">
+      <h1 class="text-5xl font-bold ">
+        Herzlich Willkommen, <span class="text-custom-red "><%= current_user.email %></span>!
+      </h1>
+
+      <p class="text-lg mt-4">
+        Schön, dass du wieder da bist. Was möchtest du als Nächstes tun?
+      </p>
+    </div>
+
+    <div class="flex space-x-6 mt-6 w-full justify-center">
+      <% if user_signed_in? %>
+        <% unless current_user.expert? %>
+          <%= link_to 'Expert*innen', experts_path, class: "bg-custom-red text-white py-3 px-8 rounded-lg shadow-lg hover:bg-custom-hover-red text-lg" %>
+          <%= link_to 'Projekte', projects_path, class: "bg-custom-red text-white py-3 px-8 rounded-lg shadow-lg hover:bg-custom-hover-red text-lg" %>
+        <% end %>
+
+        <% if current_user.admin? || (!current_user.expert? && !current_user.admin?) %>
+          <div class="dropdown relative inline-block ml-auto group">
+            <button class="bg-custom-red text-white py-3 px-8 rounded-lg shadow-lg hover:bg-custom-hover-red flex items-center text-lg">
+              Verwaltung
+              <span class="ml-2">☰</span>
+            </button>
+            <div class="dropdown-content hidden group-hover:block absolute bg-white shadow-lg p-4 z-10 transition-opacity duration-300 ease-in-out opacity-0 group-hover:opacity-100 w-[220px]">
+              <%= link_to 'Themen-/Fachgebiete', categories_path, class: "text-black block p-[14px_20px] no-underline bg-custom-red text-white text-sm py-2 rounded hover:bg-custom-hover-red transition-colors duration-200 mb-2" %>
+              <%= link_to 'Kursmodule', course_modules_path, class: "text-black block p-[14px_20px] no-underline bg-custom-red text-white text-sm py-2 rounded hover:bg-custom-hover-red transition-colors duration-200" %>
+              <% if current_user.admin? %>
+                <%= link_to 'Benutzerverwaltung', admin_users_path, class: "text-black block p-[14px_20px] no-underline bg-custom-red text-white text-sm py-2 rounded hover:bg-custom-hover-red transition-colors duration-200 mt-2" %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+</body>

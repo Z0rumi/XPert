@@ -1,0 +1,49 @@
+
+services:
+  db:
+    image: postgres:17
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    healthcheck:
+      test: ["CMD-SHELL", "psql -U $POSTGRES_USER -d $POSTGRES_DB -c 'SELECT 1'"]
+      interval: 20s        
+      timeout: 10s         
+      retries: 5           
+      start_period: 10s  
+  app:
+    build: .
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - "./:/app"
+    depends_on:
+      db:
+        condition: service_healthy
+      
+    environment:
+      - DATABASE_HOST
+      - DATABASE_USERNAME
+      - DATABASE_PASSWORD
+      - DATABASE_NAME
+      - SMTP_USERNAME
+      - SMTP_PASSWORD
+    command: rails server -b 0.0.0.0
+  
+  tailwind:
+    build: .
+    volumes:
+      - "./:/app"
+    depends_on:
+      db:
+        condition: service_healthy
+    command: rails tailwindcss:watch
+    stdin_open: true
+  
+volumes:
+  db_data:

@@ -1,0 +1,39 @@
+<div class="flex items-center justify-center pt-5">
+  <div class="w-full max-w-md bg-white p-8">
+    <h1 class="font-bold text-center mb-2 text-5xl">Expert*in</h1>
+    <h2 class="text-center text-gray-500 mb-4 text-2xl">Registrierung</h2>
+
+    <div class="registration-form-container">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { data: { turbo: false } }) do |f| %>
+        
+        <div class="mb-4">
+          <%= f.label :email, "E-Mail", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red" %>
+        </div>
+
+        <div class="mb-4">
+          <div class="flex items-center">
+            <%= f.label :password, "Passwort", class: "block text-sm font-medium text-gray-700" %>
+            <% if @minimum_password_length %>
+              <span class="ml-2 cursor-pointer" tabindex="0" data-toggle="tooltip" data-placement="right" title="Das Passwort muss mindestens 6 Zeichen haben.">
+                <%= image_tag 'info_icon.png', alt: 'Info', width: 16, height: 16 %>
+              </span>
+            <% end %>
+          </div>
+          <%= f.password_field :password, autocomplete: "new-password", class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red" %>
+        </div>
+
+        <div class="mb-6">
+          <%= f.label :password_confirmation, "Passwort wiederholen", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red" %>
+        </div>
+
+        <div class="actions flex justify-center">
+          <%= f.submit "Registrieren", class: "w-1/2 bg-custom-red hover:bg-custom-hover-red text-white font-bold p-4 text-lg border-0 rounded-md cursor-pointer transition duration-300 ease-in-out" %>
+        </div>
+
+        <%= f.hidden_field :token, value: params[:token] %>
+      <% end %>
+    </div>
+  </div>
+</div>

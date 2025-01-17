@@ -1,0 +1,76 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+alice:
+  salutation: "Frau"
+  title: "Prof. Dr."
+  first_name: "Alice"
+  last_name: "Maier"
+  nationality: "Deutsch"
+  phone_number: "+49123456789"
+  email: "alice@test.com"
+  location: "Heilbronn"
+  communication_languages: [ "Deutsch" ]
+  teaching_languages: [ "Deutsch" ]
+  hourly_rate: 100
+  daily_rate: 1000
+  travel_willingnesses: [ "online" ]
+  remark_travel_willingness: "Keine Reisebereitschaft"
+  availability: "2 Wochen vor Veranstaltung"
+  china_experience: "Keine"
+  institution: "Hochschule Heilbronn"
+  cooperation_opportunity: "-"
+  remarks: "-"
+  categories: industrie_4_0
+  course_modules: course_abc
+  extra_category: "Künstliche Intelligenz"
+  institution_association: "true"
+
+bob:
+  salutation: "Herr"
+  title: "Prof."
+  first_name: "Bob"
+  last_name: "Parker"
+  nationality: "Englisch"
+  phone_number: "+49987654321"
+  email: "bob@test.com"
+  location: "Heilbronn"
+  communication_languages: [ "Englisch" ]
+  teaching_languages: [ "Englisch" ]
+  hourly_rate: 100
+  daily_rate: 1000
+  travel_willingnesses: [ "Deutschland" ]
+  remark_travel_willingness: "Keine Reisebereitschaft"
+  availability: "4 Wochen vor Veranstaltung"
+  china_experience: "Keine"
+  institution: "Hochschule Heilbronn"
+  cooperation_opportunity: "-"
+  remarks: "-"
+  categories: digitale_technologie
+  course_modules: course_uvw
+  extra_category: "Künstliche Intelligenz"
+  institution_association: "true"
+
+maurice:
+  salutation: "Herr"
+  title: "Prof. Dr."
+  first_name: "Maurice"
+  last_name: "Müller"
+  nationality: "Deutsch"
+  phone_number: "+4959835234321"
+  email: "maurice@test.com"
+  location: "Heilbronn"
+  communication_languages: [ "Deutsch" ]
+  teaching_languages: [ "Deutsch" ]
+  hourly_rate: 100
+  daily_rate: 1000
+  travel_willingnesses: [ "Deutschland" ]
+  remark_travel_willingness: "Keine Reisebereitschaft"
+  availability: "4 Wochen vor Veranstaltung"
+  china_experience: "Keine"
+  institution: "Hochschule Heilbronn"
+  cooperation_opportunity: "-"
+  remarks: "-"
+  categories: digitale_technologie
+  course_modules: course_uvw
+  extra_category: "Künstliche Intelligenz"
+  institution_association: "true"

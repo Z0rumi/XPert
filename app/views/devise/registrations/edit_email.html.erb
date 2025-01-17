@@ -1,0 +1,28 @@
+<div class="flex items-center justify-center pt-5">
+  <div class="w-full max-w-md bg-white p-8">
+    <h1 class="text-center font-bold text-3xl mb-12">Email ändern</h1>
+
+    <%= form_for(resource, as: resource_name, url: update_email_path, html: { method: :patch }, data: { turbo: false }) do |f| %>
+      <%= hidden_field_tag :form_type, 'email' %>
+      
+      <div class="field">
+        <%= f.label :email, "neue E-Mail", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "neue Email", class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red" %><br />
+      </div>
+
+      <div class="field">
+        <%= f.label :current_password, "Passwort", class: "block text-sm font-medium text-gray-700" %> 
+        <%= f.password_field :current_password, autocomplete: "Password", class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red" %><br />
+      </div>
+
+      <div class="actions flex justify-center">
+        <%= f.submit "Speichern", class: "w-1/2 bg-custom-red hover:bg-custom-hover-red text-white font-bold p-4 text-lg border-0 rounded-md cursor-pointer transition duration-300 ease-in-out" %>
+      </div>
+    <% end %>
+
+    <div class="button-container">
+      <%= link_to "Zurück", edit_user_registration_path, class: "back-button actions flex justify-center mt-2 cursor-pointer" %>
+    </div>
+
+  </div>
+</div>

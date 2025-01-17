@@ -1,0 +1,60 @@
+<nav class="fixed top-0 left-0 w-full z-[1000] bg-white p-2 border-b border-gray-300">
+    <div class="flex justify-between items-center">
+        <a class="h-10 sm:h-16 md:h-[65px] w-auto block" href="<%= root_path %>">
+            <img class="h-10 sm:h-16 md:h-[65px] w-auto block" src="<%= asset_path('logo.png') %>" alt="Logo" class="navbar-logo">
+        </a>    
+
+        <ul class="list-none m-0 p-0 flex justify-center flex-[2]">
+            <li class="no-underline text-[#333] px-4 py-2 flex items-center transition-colors duration-300">
+                <%= link_to experts_path do %>
+                <span class="hover:text-[#007bff] flex items-center">
+                    <%= image_tag('experts.png', size: '30x30', class: 'mr-2') %>
+                    <span>Expert*innen</span>
+                </span>
+                <% end %>
+                
+            </li>
+            <li class="no-underline text-[#333] px-4 py-2 flex items-center transition-colors duration-300">
+                <%= link_to projects_path do %>
+                <span class="hover:text-[#007bff] flex items-center">
+                    <%= image_tag('projects.png', size: '30x30', class: 'mr-2') %>
+                    <span>Projekte</span>
+                </span>
+                <% end %>
+            </li>
+
+            <li class="no-underline text-[#333] px-4 py-2 flex items-center transition-colors duration-300">
+                <div class="dropdown relative inline-block ml-auto group">
+                <button class="flex items-center border-0 cursor-pointer bg-transparent p-[5px] pr-[45px] hover:bg-[rgba(0,123,255,0.1)]">
+                    <%= image_tag('verwaltung_icon.png', size: '40x40', class: 'mr-2') %>
+                    <span class="hover:text-[#007bff]">Verwaltung &nbsp;☰</span>
+                </button>
+                
+                <div class="dropdown-content hidden group-hover:block absolute bg-white min-w-[150px] shadow-lg p-[10px] z-10 transition-opacity duration-300 ease-in-out opacity-0 group-hover:opacity-100">
+                    <%= link_to "Themen-/Fachgebiete", categories_path, class: "flex items-center text-black p-[12px_16px] mb-2 no-underline bg-custom-red text-white text-sm py-2 rounded hover:bg-custom-hover-red transition-colors duration-200" %>
+                    <%= link_to "Kursmodule", course_modules_path, class: "flex items-center text-black p-[12px_16px] mb-2 no-underline bg-custom-red text-white text-sm py-2 rounded hover:bg-custom-hover-red transition-colors duration-200" %>
+                </div>
+            </li>
+        </ul>
+
+        <div class="dropdown relative inline-block ml-auto group">
+            <button class="flex items-center border-0 cursor-pointer bg-transparent pr-[10px] hover:bg-[rgba(0,123,255,0.1)]">
+                <img src="<%= asset_path('profil.jpg') %>" alt="Profil" class="mr-2 h-16 w-16 rounded-full">
+                <span class="text-left text-black">
+                    <span class="inline-block bg-custom-red text-white rounded-full px-3 py-1 text-sm">
+                    <%= I18n.t("roles.#{current_user.role}") %>
+                    </span></br>
+                    <strong class="font-bold"><%= current_user.email %></strong>
+                </span>
+                <span class="text-left text-black ml-3">
+                ☰
+                </span>
+            </button>
+        
+            <div class="dropdown-content hidden group-hover:block absolute right-0 bg-white min-w-[200px] shadow-lg p-[10px] z-10 transition-opacity duration-300 ease-in-out opacity-0 group-hover:opacity-100">
+                <%= button_to "Benutzerkonto bearbeiten", edit_user_registration_path, method: :get, class: "w-full bg-custom-red text-white text-sm py-2 mb-2 rounded hover:bg-custom-hover-red transition-colors duration-200" %>
+                <%= button_to "Abmelden", destroy_user_session_path, method: :delete, data: { turbo: true }, class: "w-full bg-custom-red text-white text-sm py-2 rounded hover:bg-custom-hover-red transition-colors duration-200" %>
+            </div>
+        </div>
+    </div>
+</nav>

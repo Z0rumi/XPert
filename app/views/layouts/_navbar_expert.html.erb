@@ -1,0 +1,40 @@
+<nav class="fixed top-0 left-0 w-full z-[1000] bg-white p-2 border-b border-gray-300">
+    <div class="flex justify-between items-center">
+        <% if current_user.initiated? %>
+            <a href="<%= expert_profile_path(current_user.expert_id) %>">
+                <img class="h-10 sm:h-16 md:h-[65px] w-auto block" src="<%= asset_path('logo.png') %>" alt="Logo" class="navbar-logo">
+            </a>
+        <% else %>
+            <a href="<%= new_expert_path %>">
+                <img class="h-10 sm:h-16 md:h-[65px] w-auto block" src="<%= asset_path('logo.png') %>" alt="Logo" class="navbar-logo">
+            </a>
+        <% end %>
+
+        <div class="dropdown relative inline-block ml-auto group">
+            <button class="flex items-center border-0 cursor-pointer bg-transparent pr-[10px] hover:bg-[rgba(0,123,255,0.1)]">
+                <img src="<%= asset_path('profil.jpg') %>" alt="Profil" class="mr-2 h-16 w-16 rounded-full">
+                <span class="text-left text-black">
+                <span class="inline-block bg-custom-red text-white rounded-full px-3 py-1 text-sm">
+                    <%= I18n.t("roles.#{current_user.role}") %>
+                </span></br>
+                <strong class="font-bold"><%= current_user.email %></strong>
+                </span>
+                <span class="text-left text-black ml-3">
+                ☰
+                </span>
+            </button>
+        
+            <div class="dropdown-content hidden group-hover:block absolute right-0 bg-white min-w-[200px] shadow-lg p-[10px] z-10 transition-opacity duration-300 ease-in-out opacity-0 group-hover:opacity-100">
+                <% if current_user.initiated == false %>
+                    <%= button_to "Expert*in Profil erstellen", new_expert_path, method: :get, class: "w-full bg-custom-red text-white text-sm py-2 mb-2 rounded hover:bg-custom-hover-red transition-colors duration-200" %>
+                <% else %>
+                    <%= button_to "Expert*in Profil anzeigen", expert_profile_path(current_user.expert_id), method: :get, class: "w-full bg-custom-red text-white text-sm py-2 mb-2 rounded hover:bg-custom-hover-red transition-colors duration-200" %>
+                <% end %>
+            
+                <%= button_to "Benutzerkonto bearbeiten", edit_user_registration_path, method: :get, class: "w-full bg-custom-red text-white text-sm py-2 mb-2 rounded hover:bg-custom-hover-red transition-colors duration-200" %>
+            
+                <%= button_to "Abmelden", destroy_user_session_path, method: :delete, data: { turbo: true }, class: "w-full bg-custom-red text-white text-sm py-2 rounded hover:bg-custom-hover-red transition-colors duration-200" %>
+            </div>
+        </div>
+    </div>
+</nav>

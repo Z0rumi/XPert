@@ -1,0 +1,59 @@
+<div class="mx-auto w-1/2">
+  <h1 class="text-center font-bold text-4xl mb-4">Benutzer*in bearbeiten</h1>
+
+  <%= form_with model: @user, url: admin_user_path(@user), local: true do |form| %>
+
+    <div class="mb-4">
+      <%= form.label :email, "E-Mail *", class: "block text-sm font-medium text-gray-700" %>
+      
+      <% if form.object.errors[:email].any? %>
+        <div class="text-red-500 mt-1">
+          <%= form.object.errors[:email].join(", ") %>
+        </div>
+      <% end %>
+      
+      <%= form.email_field :email, autofocus: true, autocomplete: "email", class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red" %>
+    </div>
+
+    <div class="mb-4">
+      <%= form.label :password, "Passwort (optional)", class: "block text-sm font-medium text-gray-700" %>
+      <% if form.object.errors[:password].any? %>
+        <div class="text-red-500 mt-1">
+          <%= form.object.errors[:password].join(", ") %>
+        </div>
+      <% end %>
+      <%= form.password_field :password, autocomplete: "new-password", placeholder: "Leer lassen, um Passwort beizubehalten", class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red" %>
+    </div>
+    
+    <div class="mb-4">
+      <%= form.label :password_confirmation, "Passwort bestätigen (optional)", class: "block text-sm font-medium text-gray-700" %>
+      <% if form.object.errors[:password_confirmation].any? %>
+        <div class="text-red-500 mt-1">
+          <%= form.object.errors[:password_confirmation].join(", ") %>
+        </div>
+      <% end %>
+      <%= form.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Leer lassen, um Passwort beizubehalten", class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red" %>
+    </div>
+
+    <div class="mb-6">
+      <%= form.label :role, "Rolle *", class: "block text-sm font-medium text-gray-700" %>
+      
+      <% if form.object.errors[:role].any? %>
+        <div class="text-red-500 mt-1">
+          <%= form.object.errors[:role].join(", ") %>
+        </div>
+      <% end %>
+
+      <%= form.select :role, @roles.map { |key| [I18n.t("roles.#{key}"), key] }, {}, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red" %>
+    </div>
+
+    <div class="actions flex justify-center">
+      <%= form.submit "Benutzer*in speichern", class: "w-1/2 bg-custom-red hover:bg-custom-hover-red text-white font-bold p-4 text-lg border-0 rounded-md cursor-pointer transition duration-300 ease-in-out" %>
+    </div>
+
+    <div class="text-center mt-5">
+      <%= link_to 'Zurück zu den Benutzer*innen', admin_users_path, class: "back-button actions flex justify-center mt-2 cursor-pointer" %>
+    </div>
+
+  <% end %>
+</div>

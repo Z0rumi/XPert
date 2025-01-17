@@ -1,0 +1,12 @@
+<div class="w-full">
+  <h1 class="text-center font-bold text-4xl mb-12">Expert*in bearbeiten</h1>
+
+  <%= render "form", expert: @expert, button_text: "Expert*in speichern" %>
+
+  <div class="flex justify-center mt-6 space-x-4">
+    <%= link_to "Zurück zum Expert*in Profil", @expert, class: "back-button actions flex justify-center mt-2 mr-6 cursor-pointer" %>
+    <% if current_user.staff? || current_user.intern? %>
+      <%= link_to "Zurück zu den Expert*innen", experts_path, class: "back-button actions flex justify-center mt-2 cursor-pointer" %>
+    <% end %>
+  </div>
+</div>

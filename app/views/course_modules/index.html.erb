@@ -1,0 +1,36 @@
+<div class="w-1/2 mx-auto">
+  <% content_for :title, "Kursmodule" %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="text-center font-bold text-4xl mb-4">Kursmodule</h1>
+    <% if current_user.staff? || current_user.admin? %>
+      <%= link_to "Neues Kursmodul", new_course_module_path, class: "mb-4 bg-custom-red hover:bg-custom-hover-red text-white font-bold p-4 text-center border-0 rounded-md cursor-pointer transition duration-300 ease-in-out" %>
+    <% end %>
+  </div>
+
+  <div id="course_modules" class="mt-5 w-full">
+    <% @course_modules.each do |course_module| %>
+      <div class="odd:bg-f9f9f9 even:bg-white flex justify-between items-center bg-white p-4 my-2 border-b border-gray-300 rounded-lg">
+        <div class="break-words max-w-[50ch]">
+          <strong><%= course_module.name %></strong> </br>
+          <%= course_module.description %>
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <%= link_to edit_course_module_path(course_module) do %>
+            <% if current_user.staff? || current_user.admin? %>
+              <button type="button" class="mb-4 bg-slate-700 hover:bg-slate-800 text-white p-2 text-center border-0 rounded-md cursor-pointer transition duration-300 ease-in-out">
+                Bearbeiten
+              </button>
+            <% end %>
+          <% end %>
+
+          <!-- LÖSCHEN BUTTON -->
+          <% if current_user.staff? || current_user.admin? %>
+            <%= render "layouts/delete_modal", delete_button_text: "Löschen", modal_title: "Sind Sie sicher, dass Sie dieses Kursmodul löschen möchten?", delete_path: course_module_path(course_module), delete_button_classes: "mb-4 bg-custom-red hover:bg-custom-hover-red text-white p-2 text-center border-0 rounded-md cursor-pointer transition duration-300 ease-in-out" %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="flex items-center justify-center pt-5">
+  <div class="w-full max-w-md bg-white p-8">
+    <h1 class="font-bold text-center mb-2 text-5xl">Xpert</h1>
+    <h2 class="text-center text-gray-500 mb-4 text-2xl">Passwort vergessen?</h2>
+
+    <div class="forgot-password-form-container">
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="mb-4">
+          <%= f.label :email, "E-Mail", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red" %>
+        </div>
+
+        <div class="actions flex justify-center">
+          <%= f.submit "Passwort zurücksetzen", class: "w-2/3 bg-custom-red hover:bg-custom-hover-red text-white font-bold p-4 text-lg border-0 rounded-md cursor-pointer transition duration-300 ease-in-out", data: {turbo: false} %>
+        </div>
+      <% end %>
+
+      <%- if controller_name != 'sessions' %>
+        <%= link_to "Zurück zum Login", new_user_session_path, class: "actions flex justify-center mt-2 cursor-pointer" %>
+      <% end %>
+    </div>
+  </div>
+</div>

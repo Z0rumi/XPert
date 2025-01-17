@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "App" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "modal" %>
+    <%= stylesheet_link_tag 'tags', media: 'all' %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="h-screen flex flex-col">
+    <% if current_user %>
+      <% if current_user.admin? %>
+        <%= render 'layouts/navbar_admin' %>
+      <% elsif current_user.staff? || current_user.intern? %>
+        <%= render 'layouts/navbar_staff_intern' %>
+      <% elsif %>
+        <%= render 'layouts/navbar_expert' %>
+      <% end %>
+    <% else %>
+      <%= render 'layouts/navbar_default' %>
+    <% end %>
+    
+    <main class="flex-grow container mx-auto mt-28 px-5">
+      <% if notice.present? %>
+        <div class="flex justify-center">
+          <p class="text-center mb-3 font-medium rounded-lg" id="notice">
+            <%= notice %>
+          </p>
+        </div>
+      <% end %>
+
+      <% if alert.present? %>
+        <div class="flex justify-center">
+          <p class="text-center py-2 px-3 bg-red-50 mb-5 text-red-500 font-medium rounded-lg" id="alert">
+            <%= alert %>
+          </p>
+        </div>
+      <% end %>
+
+      <%= turbo_frame_tag "show_modal" %>
+      <%= turbo_frame_tag "delete_modal" %>
+      <%= yield %>
+    </main>
+
+    <%= render 'layouts/info_container' %>
+  </body>
+</html>

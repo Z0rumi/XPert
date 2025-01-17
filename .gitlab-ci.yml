@@ -1,0 +1,42 @@
+stages:
+    - test
+    - deploy
+
+rails_test:
+    stage: test
+    image: ruby:3.3.5
+    services:
+        - name: postgres:17.0
+          alias: $DATABASE_HOST
+        - name: selenium/standalone-chrome
+          alias: selenium
+    variables:
+        POSTGRES_USER: $POSTGRES_USER
+        POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+        POSTGRES_DB: $POSTGRES_DB
+        DATABASE_USERNAME: $DATABASE_USERNAME
+        DATABASE_PASSWORD: $DATABASE_PASSWORD
+        DATABASE_HOST: $DATABASE_HOST
+        RAILS_ENV: test
+        DISABLE_SPRING: 1
+        BUNDLE_PATH: vendor/bundle
+    before_script:
+      - apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs yarn wget unzip libnss3 libxss1 libgconf-2-4 libappindicator3-1 fonts-liberation xdg-utils libgtk-3-0 libdbus-glib-1-2 libasound2 libx11-xcb1
+      - gem install bundler -v 2.5.21
+      - bundle install
+      - bundle exec rails db:create db:schema:load --trace
+      - bundle exec rails db:migrate
+    script:
+      - bundle exec rubocop
+      - bundle exec rails test
+      - bundle exec rails test:system
+
+heroku_deploy:
+  stage: deploy
+  image: ruby:3.3.5
+  script:
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_PRODUCTION_KEY
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: on_success

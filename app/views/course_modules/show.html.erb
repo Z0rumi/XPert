@@ -1,0 +1,14 @@
+<%= turbo_frame_tag "show_modal" do %>
+  <div class="modal fixed z-10 p-8 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-auto bg-white rounded shadow-lg mx-auto md:w-2/3 w-full flex relative">
+    <%= link_to "#", data: {
+      controller: "show-modal",
+      action: "show-modal#close"
+    }, class: "absolute top-0 right-0 m-2 bg-custom-red text-white font-bold rounded-full h-8 w-8 flex items-center justify-center" do %>
+      ×
+    <% end %>
+
+    <div class="mx-auto">
+      <%= render @course_module %>
+    </div>
+  </div>
+<% end %>

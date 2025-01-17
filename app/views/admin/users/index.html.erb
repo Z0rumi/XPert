@@ -1,0 +1,33 @@
+<div class="w-1/2 mx-auto">
+  <% content_for :title, "Benutzerverwaltung" %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="text-center font-bold text-4xl mb-4">Benutzerverwaltung</h1>
+      <%= link_to "Benutzer*in anlegen", new_admin_user_path, class: "mb-4 bg-custom-red hover:bg-custom-hover-red text-white font-bold p-4 text-center border-0 rounded-md cursor-pointer transition duration-300 ease-in-out" %>
+  </div>
+
+  <div id="users" class="mt-5 w-full">
+    <% @users.each do |user| %>
+      <div class="odd:bg-f9f9f9 even:bg-white flex justify-between items-center bg-white p-4 border-b border-gray-300 rounded-lg">
+        <div class="break-words max-w-[35ch]">
+          <span class="inline-block bg-custom-red text-white rounded-full px-3 py-1 text-sm">
+            <%= I18n.t("roles.#{user.role}") %>
+          </span></br>
+          <%= user.email %>
+        </div>
+        
+        <div class="flex items-center space-x-4">
+        <!-- BEARBEITEN BUTTON -->
+          <%= link_to edit_admin_user_path(user) do %>
+            <button type="button" class="bg-slate-700 hover:bg-slate-800 text-white p-2 text-center border-0 rounded-md cursor-pointer transition duration-300 ease-in-out">
+              Bearbeiten
+            </button>
+          <% end %>
+
+          <!-- LÖSCHEN BUTTON -->
+          <%= render "layouts/delete_modal", delete_button_text: "Löschen", modal_title: "Sind Sie sicher, dass Sie diesen Benutzer löschen möchten?", delete_path: admin_user_path(user), delete_button_classes: "bg-custom-red hover:bg-custom-hover-red text-white p-2 text-center border-0 rounded-md cursor-pointer transition duration-300 ease-in-out" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

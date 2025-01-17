@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+course_abc:
+  name: "Kurs ABC"
+  description: "Im Kurs ABC übernehmen Sie Aufgaben DEF. Neben der Veranschaulichung von Thema GHI, ist es Ihre Aufgabe das detaillierte Erklären von JKL."
+
+course_uvw:
+  name: "Kurs UVW"
+  description: "Im Kurs UVW übernehmen Sie Aufgaben DEF. Neben der Veranschaulichung von Thema GHI, ist es Ihre Aufgabe das detaillierte Erklären von XYZ."

@@ -1,0 +1,18 @@
+<%= form_with(model: category, class: "contents") do |form| %>
+  <% if category.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2>Fachgebiet/Kategorie konnte nicht erstellt werden. Bitte alle Pflichtfelder überprüfen.</h2>
+    </div>
+  <% end %>
+
+  <h2 class="text-center text-gray-500 mb-12 text-1xl">Bitte füllen Sie das Formular aus.</h2>
+
+  <div class="my-5">
+    <%= form.label :name, "Name *", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_field :name, autofocus: true, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red" %>
+  </div>
+
+  <div class="text-center">
+    <%= form.submit "#{button_text}", class: "mt-4 w-1/2 bg-custom-red hover:bg-custom-hover-red text-white font-bold p-4 text-lg border-0 rounded-md cursor-pointer transition duration-300 ease-in-out" %>
+  </div>
+<% end %>

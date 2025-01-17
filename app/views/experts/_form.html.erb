@@ -1,0 +1,380 @@
+<%= form_with(model: expert, class: "contents") do |form| %>
+  <% if expert.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2>Expert*in konnte nicht erstellt werden. Bitte alle Pflichtfelder überprüfen.</h2>
+    </div>
+  <% end %>
+
+  <h2 class="text-center text-gray-500 mb-12 text-1xl">Bitte füllen Sie das Formular aus.</h2>
+
+  <div class="my-5 flex justify-center">
+    <div class="w-[45%] mr-[10%]">
+      <label class="block text-sm font-medium text-gray-700" for="salutation">Anrede *</label>
+
+      <% if expert.errors[:salutation].any? %>
+        <div class="text-red-500">
+          <%= "Anrede muss ausgewählt werden." %>
+        </div>
+      <% end %>
+
+      <%= form.collection_select :salutation, @salutations, :to_s, :to_s, { include_blank: 'Bitte wählen...' }, { class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red", id: "salutation_select" } %>
+    </div>
+
+    <div class="w-[45%]">
+      <%= form.label :title, "Titel", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.text_field :title, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red", placeholder: "Prof. Dr." %>
+    </div>
+  </div>
+
+  <div class="my-5 flex justify-center">
+    <div class="w-[45%] mr-[10%]">
+      <%= form.label :first_name, "Vorname *", class: "block text-sm font-medium text-gray-700" %>
+
+      <% if form.object.errors[:first_name].any? %>
+        <div class="text-red-500 mt-1">
+          <%= "Vorname muss angegeben werden." %>
+        </div>
+      <% end %>
+
+      <%= form.text_field :first_name, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red", placeholder: "Max" %>
+    </div>
+
+    <div class="w-[45%]">
+      <%= form.label :last_name, "Nachname *", class: "block text-sm font-medium text-gray-700" %>
+
+      <% if form.object.errors[:last_name].any? %>
+        <div class="text-red-500 mt-1">
+          <%= "Nachname muss angegeben werden." %>
+        </div>
+      <% end %>
+
+      <%= form.text_field :last_name, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red", placeholder: "Mustermann" %>
+    </div>
+  </div>
+
+  <div class="my-5 flex justify-center">
+    <div class="w-[45%] mr-[10%]">
+      <%= form.label :email, "E-Mail *", class: "block text-sm font-medium text-gray-700" %>
+
+      <% if form.object.errors[:email].any? %>
+        <div class="text-red-500 mt-1">
+          <%= "Eine gültige E-Mail muss angegeben werden." %>
+        </div>
+      <% end %>
+
+      <%= form.text_field :email, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red", placeholder: "exmaple@mail.de" %>
+    </div>
+
+    <div class="w-[45%]">
+      <%= form.label :nationality, "Staatsangehörigkeit *", class: "block text-sm font-medium text-gray-700" %>
+
+      <% if form.object.errors[:nationality].any? %>
+        <div class="text-red-500 mt-1">
+          <%= "Staatsangehörigkeit muss angegeben werden." %>
+        </div>
+      <% end %>
+
+      <%= form.text_field :nationality, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red", placeholder: "Deutsch" %>
+    </div>
+  </div>
+
+  <div class="my-5 flex justify-center">
+    <div class="w-[45%] mr-[10%]">
+      <%= form.label :location, "Ihr Standort *", class: "block text-sm font-medium text-gray-700" %>
+
+      <% if form.object.errors[:location].any? %>
+        <div class="text-red-500 mt-1">
+          <%= "Ihr Standort muss angegeben werden." %>
+        </div>
+      <% end %>
+
+      <%= form.text_field :location, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red", placeholder: "München" %>
+    </div>
+
+    <div class="w-[45%]">
+      <%= form.label :phone_number, "Telefonnummer *", class: "block text-sm font-medium text-gray-700" %>
+
+      <% if form.object.errors[:phone_number].any? %>
+        <div class="text-red-500 mt-1">
+          <%= "Telefonnummer muss angegeben werden." %>
+        </div>
+      <% end %>
+
+      <%= form.text_field :phone_number, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red", placeholder: "+49123456789" %>
+    </div>
+  </div>
+
+  <div class="my-5 flex justify-center">
+    <div class="w-[45%] mr-[10%]">
+      <%= form.label :hourly_rate, "Honorarvorstellung: Stundensatz *", class: "block text-sm font-medium text-gray-700" %>
+
+      <% if form.object.errors[:hourly_rate].any? %>
+        <div class="text-red-500 mt-1">
+          <%= "Stundensatz muss angegeben werden." %>
+        </div>
+      <% end %>
+
+      <div class="flex items-center mt-2">
+        <%= form.number_field :hourly_rate, step: 0.01, class: "mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red", placeholder: "100", value: expert.hourly_rate ? (expert.hourly_rate / 100.00).to_f : nil  %>
+        <span class="ml-2 text-gray-600">€</span>
+      </div>
+    </div>
+
+    <div class="w-[45%]">
+      <%= form.label :daily_rate, "Honorarvorstellung: Tagessatz *", class: "block text-sm font-medium text-gray-700" %>
+
+      <% if form.object.errors[:daily_rate].any? %>
+        <div class="text-red-500 mt-1">
+          <%= "Tagessatz muss angegeben werden." %>
+        </div>
+      <% end %>
+
+      <div class="flex items-center mt-2">
+        <%= form.number_field :daily_rate, step: 0.01, class: "mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red", placeholder: "1.000", value: expert.daily_rate ? (expert.daily_rate / 100.00).to_f : nil %>
+        <span class="ml-2 text-gray-600">€</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="my-5 flex justify-center">
+    <div class="w-[45%] mr-[10%]"data-controller="tag-selector" data-tag-selector-param-name="expert[communication_languages][]">
+      <%= form.label :communication_languages, "Kommunikationssprachen *", class: "block text-sm font-medium text-gray-700" %>
+    
+      <% if form.object.errors[:communication_language].any? %>
+        <div class="text-red-500 mt-1">
+          <%= "Mindestens eine Kommunikationssprache muss angegeben werden." %>
+        </div>
+      <% end %>
+    
+      <%= select_tag 'communication_languages_select',
+            options_for_select([['Bitte wählen...', '']] + @communication_languages.map { |lang| [lang, lang] }),
+            data: { tag_selector_target: 'select' },
+            class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red" %>
+    
+      <div data-tag-selector-target="selectedTags" class="mt-2 flex flex-wrap">
+        <% if expert.communication_languages.present? %>
+          <% expert.communication_languages.each do |language| %>
+            <span data-id="<%= language %>" class="tag flex items-center bg-blue-200 text-blue-800 px-2 py-1 rounded mr-2 mt-2">
+              <%= language %>
+              <button type="button" class="remove-tag ml-2 text-red-500 hover:text-red-700">&times;</button>
+            </span>
+            <input type="hidden" name="expert[communication_languages][]" value="<%= language %>" class="category-input">
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="w-[45%]" data-controller="tag-selector" data-tag-selector-param-name="expert[teaching_languages][]">
+      <%= form.label :teaching_languages, "Unterrichtssprachen *", class: "block text-sm font-medium text-gray-700" %>
+    
+      <% if form.object.errors[:teaching_language].any? %>
+        <div class="text-red-500 mt-1">
+          <%= "Mindestens eine Unterrichtssprache muss angegeben werden." %>
+        </div>
+      <% end %>
+    
+      <%= select_tag 'teaching_languages_select',
+            options_for_select([['Bitte wählen...', '']] + @teaching_languages.map { |lang| [lang, lang] }),
+            data: { tag_selector_target: 'select' },
+            class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red" %>
+    
+      <div data-tag-selector-target="selectedTags" class="mt-2 flex flex-wrap">
+        <% if expert.teaching_languages.present? %>
+          <% expert.teaching_languages.each do |language| %>
+            <span data-id="<%= language %>" class="tag flex items-center bg-blue-200 text-blue-800 px-2 py-1 rounded mr-2 mt-2">
+              <%= language %>
+              <button type="button" class="remove-tag ml-2 text-red-500 hover:text-red-700">&times;</button>
+            </span>
+            <input type="hidden" name="expert[teaching_languages][]" value="<%= language %>" class="category-input">
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="my-5 flex justify-center">
+    <div class="w-[45%] mr-[10%]">
+      <%= form.label :availability, "Verfügbarkeit - Wie kurzfristig dürfen wir Sie für ein Projekt kontaktieren? *", class: "block text-sm font-medium text-gray-700" %>
+
+      <% if form.object.errors[:availability].any? %>
+        <div class="text-red-500 mt-1">
+          <%= "Verfügbarkeit muss ausgewählt werden." %>
+        </div>
+      <% end %>
+
+      <%= form.text_field :availability, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red", placeholder: "Mindestens 2 Wochen vor Termin" %>
+    </div>
+
+    <div class="w-[45%]" data-controller="tag-selector" data-tag-selector-param-name="expert[travel_willingnesses][]">
+      <%= form.label :travel_willingnesses, "Reisebereitschaft – Wohin sind Sie bereit für die Veranstaltungen zu reisen? *", class: "block text-sm font-medium text-gray-700" %>
+    
+      <% if form.object.errors[:travel_willingness].any? %>
+        <div class="text-red-500 mt-1">
+          <%= "Mindestens eine Reisebereitschaft muss angegeben werden." %>
+        </div>
+      <% end %>
+    
+      <%= select_tag 'travel_willingnesses_select',
+            options_for_select([['Bitte wählen...', '']] + @travel_willingnesses.map { |lang| [lang, lang] }),
+            data: { tag_selector_target: 'select' },
+            class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red" %>
+    
+      <div data-tag-selector-target="selectedTags" class="mt-2 flex flex-wrap">
+        <% if expert.travel_willingnesses.present? %>
+          <% expert.travel_willingnesses.each do |language| %>
+            <span data-id="<%= language %>" class="tag flex items-center bg-blue-200 text-blue-800 px-2 py-1 rounded mr-2 mt-2">
+              <%= language %>
+              <button type="button" class="remove-tag ml-2 text-red-500 hover:text-red-700">&times;</button>
+            </span>
+            <input type="hidden" name="expert[travel_willingnesses][]" value="<%= language %>" class="category-input">
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :remark_travel_willingness, "Anmerkungen zur Reisebereitschaft – Haben Sie noch Anmerkungen zu Ihrer Reisebereitschaft? ", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_area :remark_travel_willingness, rows: 4, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red", placeholder: "Ich möchte nur nach Peking fliegen" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :china_experience, "Chinabezug/Chinaerfahrung – Welchen beruflichen / privaten Chinabezug haben Sie? Welche Chinaerfahrung haben Sie bisher gesammelt? *", class: "block text-sm font-medium text-gray-700" %>
+
+    <% if form.object.errors[:china_experience].any? %>
+      <div class="text-red-500 mt-1">
+        <%= "Chinabezug/Chinaerfahrung muss angegeben werden." %>
+      </div>
+    <% end %>
+
+    <%= form.text_area :china_experience, rows: 4, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red", placeholder: "beruflich: Ich habe Chinawissenschaften studiert und 5 Jahre lang in Beijing gearbeitet. privat: Meine Frau kommt aus China." %>
+  </div>
+
+  <div class="my-5" data-controller="tag-selector" data-tag-selector-param-name="expert[category_ids][]">
+    <label for="category_select" class="block text-sm font-medium text-gray-700">Expertise: Themen-/Fachgebiete *</label>
+
+    <% if form.object.errors[:categories].any? %>
+      <div class="text-red-500 mt-1">
+        <%= "Mindestens ein Thema/Fachgebiet muss ausgewählt werden." %>
+      </div>
+    <% end %>
+
+    <%= select_tag 'category_select', 
+          options_for_select([['Bitte wählen...', '']] + @categories.map { |category| [category.name, category.id] }), 
+          data: { tag_selector_target: 'select' }, 
+          id: 'category_select', 
+          class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red" %>
+
+    <div data-tag-selector-target="selectedTags" class="mt-2 flex flex-wrap">
+      <% expert.categories.each do |category| %>
+        <span data-id="<%= category.id %>" class="tag flex items-center bg-blue-200 text-blue-800 px-2 py-1 rounded mr-2 mt-2">
+          <%= category.name %>
+          <button type="button" class="remove-tag ml-2 text-red-500 hover:text-red-700">&times;</button>
+        </span>
+        <input type="hidden" name="expert[category_ids][]" value="<%= category.id %>" class="category-input">
+      <% end %>
+    </div>
+  </div>
+
+  <div class="my-5">
+      <%= form.label :extra_category, "Expertise: Weitere Themen-/Fachgebiete (Stichworte)", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.text_field :extra_category, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red", placeholder: "Künstliche Intelligenz" %>
+  </div>
+
+  <div class="my-5 flex justify-between">
+    <div class="w-[45%] mr-[10]" data-controller="institution-association">
+      <%= form.label :institution_association, "Angehörige Institution / angehöriges Unternehmen – Gehören Sie aktuell einer Institution / einem Unternehmen an? *", class: "block text-sm font-medium text-gray-700" %>
+
+      <% if form.object.errors[:institution_association].any? %>
+        <div class="text-red-500 mt-1">
+          <%= "Bitte wählen Sie aus." %>
+        </div>
+      <% end %>
+
+      <div class="flex items-center mt-2">
+        <%= form.radio_button :institution_association, true, id: "institution_yes", class: "mr-2 institution-association-radio" %>
+        <%= form.label :institution_association, "Ja", for: "institution_yes", class: "mr-6" %>
+
+        <%= form.radio_button :institution_association, false, id: "institution_no", class: "mr-2 institution-association-radio" %>
+        <%= form.label :institution_association, "Nein", for: "institution_no" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="my-5 hidden" id="institution-field">
+    <%= form.label :institution, "Welcher Institution / welchem Unternehmen gehören Sie an? *", class: "block text-sm font-medium text-gray-700" %>
+
+    <% if form.object.errors[:institution].any? %>
+      <div class="text-red-500 mt-1">
+        <%= "Bitte geben Sie Ihre Institution an." %>
+      </div>
+    <% end %>
+
+    <%= form.text_area :institution, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red", placeholder: "Ich arbeite beim xyz Institut" %>
+  </div>
+
+  <div class="my-5 hidden" id="cooperation-opportunity-field">
+    <%= form.label :cooperation_opportunity, "Welche Möglichkeiten einer Kooperation mit Ihrer Institution / Ihrem Unternehmen hätten wir (z.B. Partnerschaft, Werksführung)?", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_area :cooperation_opportunity, rows: 4, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red", placeholder: "Es wäre möglich, eine Werksführung mit kleinen Gruppen durchzuführen." %>
+  </div>
+
+  <div class="my-5" data-controller="tag-selector-with-info" data-tag-selector-with-info-param-name="expert[course_module_ids][]">
+    <label for="course_module_select" class="block text-sm font-medium text-gray-700">
+      Kursmodule – Welche von diesen Kursmodulen könnten Sie übernehmen?
+    </label>
+
+    <select id="course_module_select" data-tag-selector-with-info-target="select"class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red">
+      <option value="">Bitte wählen...</option>
+      <% @course_modules.each do |course_module| %>
+        <option value="<%= course_module.id %>" data-url="<%= url_for(course_module) %>">
+          <%= course_module.name %>
+        </option>
+      <% end %>
+    </select>
+
+    <div id="selected-course-modules" class="mt-2 flex flex-wrap" data-tag-selector-with-info-target="selectedTags">
+      <% expert.course_modules.each do |course_module| %>
+        <span data-id="<%= course_module.id %>" class="tag flex items-center bg-blue-200 text-blue-800 px-2 py-1 rounded mr-2 mt-2">
+          <div>
+            <%= link_to course_module, data: { turbo_frame: "show_modal" } do %>
+              <%= image_tag('info_icon_white.png', class: 'w-4 h-4 flex-shrink-0') %>
+            <% end %>
+          </div>
+          <div class="ml-[5px]"><%= course_module.name %></div>
+          <button type="button" class="remove-tag ml-2 text-red-500 hover:text-red-700">&times;</button>
+        </span>
+
+        <input type="hidden" name="expert[course_module_ids][]" value="<%= course_module.id %>">
+      <% end %>
+    </div>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :remarks, "Sonstige Anmerkungen", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_area :remarks, rows: 4, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red", placeholder: "Ich möchte bevorzugt Projekte in China wahrnehmen." %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :cv, "Lebenslauf hochladen (.pdf, .png, .jpg oder .jpeg)", class: "block text-sm font-medium text-gray-700" %>
+
+    <% if form.object.errors[:cv].any? %>
+      <div class="text-red-500 mt-1">
+        <%= "Datei darf maximal 10MB groß sein und nur im Dateiformat .pdf, .png, .jpg oder .jpeg" %>
+      </div>
+    <% end %>
+
+    <%= form.file_field :cv, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red", accept: ".pdf,.png,.jpg,.jpeg", id: "cvInput" %>
+    <% if expert.persisted? && expert.cv.attached? && expert.cv.persisted? %>
+      <p class="mt-2 block text-sm font-medium text-gray-700">
+        Aktuell hochgeladen:
+      </p>
+      <p>
+        <%= link_to expert.cv.filename.to_s, rails_blob_path(expert.cv, disposition: "attachment") %>
+      </p>
+    <% end %>
+  </div>
+
+  <div class="text-center mt-4">
+    <%= form.submit "#{button_text}", class: "mt-4 w-1/2 bg-custom-red hover:bg-custom-hover-red text-white font-bold p-4 text-lg border-0 rounded-md cursor-pointer transition duration-300 ease-in-out" %>
+  </div>
+<% end %>

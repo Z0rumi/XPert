@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+china_project:
+  project_name: "China projekt"
+  main_topics: "KI"
+  start_date: 2024-10-16
+  end_date: 2024-12-16
+  project_type: "Delegationsbesuch"
+  client: "Samsung"
+  location: "Heilbronn"
+  city: "Heilbronn"
+  experts: alice
+
+deutschland_project:
+  project_name: "Deutschland projekt"
+  main_topics: "Wirtschaft"
+  start_date: 2024-10-16
+  end_date: 2024-11-16
+  project_type: "Dozentenfortbildung"
+  client: "Sparkasse"
+  location: "Heilbronn"
+  city: "Heilbronn"
+  experts: bob

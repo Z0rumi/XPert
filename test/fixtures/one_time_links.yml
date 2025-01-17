@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one_time_link1:
+  token: "ac964a69c3096e28f493"
+  used: false
+  expires_at: <%= 1.day.from_now %>
+
+one_time_link2:
+  token: "e6c5e8e993baa680a854"
+  used: false
+  expires_at: <%= 1.day.from_now %>

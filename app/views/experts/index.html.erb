@@ -1,0 +1,97 @@
+<div class="w-full">
+  <h1 class="text-center font-bold text-4xl mb-12">Expert*innen</h1>
+
+  <% content_for :title, "Expert*innen" %>
+
+  <!-- BUTTONS ERSTELLEN/EINMALLINK -->
+  <div class="flex justify-between items-center mb-8">
+    <% if current_user.staff? || current_user.admin? %>
+      <%= link_to "Einmallink zur Registrierung erstellen", one_time_link_form_path, class: "mb-4 bg-custom-red hover:bg-custom-hover-red text-white font-bold p-4 text-center border-0 rounded-md cursor-pointer transition duration-300 ease-in-out", data: { turbo_frame: "show_modal" } %>
+      <%= link_to "Expert*in anlegen", new_expert_path, class: "mb-4 bg-custom-red hover:bg-custom-hover-red text-white font-bold p-4 text-center border-0 rounded-md cursor-pointer transition duration-300 ease-in-out" %>
+    <% end %>
+  </div>
+
+  <div class="flex">
+  
+    <!-- EXPERTENFILTER -->
+    <div class="w-1/4 p-4">
+      <%= search_form_for @q do |f| %>
+
+        <!-- FILTER NAME -->
+        <label for="name_search" class="block text-gray-700 font-medium mb-2">Name suchen:</label>
+        <%= f.search_field :full_name_cont, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red", placeholder: "Vorname und/oder Nachname", id: "name_search" %>
+        
+        <!-- FILTER THEMA/FACHGEBIET -->
+        <div class="my-5">
+          <div class="categories-filter-tag-container my-5" data-controller="filter-tag">
+            <label for="filter_tag_select" class="block text-gray-700 font-medium mt-6 mb-2">Themen-/Fachgebiete suchen:</label>
+            <%= select_tag "filter_tag_select", options_for_select([['Bitte wählen...', '']] + @categories.map { |category| [category.name, category.name] }), 
+              {
+                data: {
+                    filter_tag_target: "select",
+                    param_name: "q[categories_name_in_any][]"
+                },
+                class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red",
+                id: "filter_tag_select" 
+              } %>
+          
+            <div class="mt-2 flex flex-wrap" data-filter-tag-target="selectedTags">
+              <% (params.dig(:q, :categories_name_in_any) || []).uniq.reject(&:blank?).each do |pt| %>
+                <span data-value="<%= pt %>" class="tag flex items-center bg-custom-red text-white px-3 py-1 rounded-md gap-2">
+                  <%= pt %>
+                  <button type="button" class="remove-tag ml-2 text-white font-bold">&times;</button>
+                </span>
+                <input type="hidden" name="q[categories_name_in_any][]" value="<%= pt %>">
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <!-- FILTER KURSMODUL -->
+        <div class="my-5">
+          <div class="course-module-filter-tag-container my-5" data-controller="filter-tag">
+            <label for="filter_tag_select" class="block text-gray-700 font-medium mt-6 mb-2">Kursmodule suchen:</label>
+            <%= select_tag "filter_tag_select", options_for_select([['Bitte wählen...', '']] + @course_modules.map { |course_module| [course_module.name, course_module.name] }), 
+              {
+                data: {
+                    filter_tag_target: "select",
+                    param_name: "q[course_modules_name_in_any][]"
+                },
+                class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red",
+                id: "filter_tag_select" 
+              } %>
+          
+            <div class="mt-2 flex flex-wrap" data-filter-tag-target="selectedTags">
+              <% (params.dig(:q, :course_modules_name_in_any) || []).uniq.reject(&:blank?).each do |pt| %>
+                <span data-value="<%= pt %>" class="tag flex items-center bg-custom-red text-white px-3 py-1 rounded-md gap-2">
+                  <%= pt %>
+                  <button type="button" class="remove-tag ml-2 text-white font-bold">&times;</button>
+                </span>
+                <input type="hidden" name="q[course_modules_name_in_any][]" value="<%= pt %>">
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <%= f.submit "Suchen", class: "mb-4 bg-custom-red hover:bg-custom-hover-red text-white font-bold p-4 text-center border-0 rounded-md cursor-pointer transition duration-300 ease-in-out" %>
+      <% end %>
+    </div>
+
+    <!-- EXPERTENAUFLISTUNG -->
+    <div id="experts-container" class="w-3/4 p-4">
+      <div id="experts" class="space-y-4">
+        <% @experts.each do |expert| %>
+          <div class="expert-card border rounded-lg p-4 flex items-center">
+            <div class="icon bg-gray-100 flex items-center justify-center w-16 h-16">
+              <%= image_tag("profil.jpg", alt: "Profil Icon", class: "w-full h-full object-cover") %>
+            </div>
+            <div class="expert-info ml-4 flex flex-col items-start">
+              <h3 class="font-bold text-lg"><%= expert.title + " " + expert.first_name + " " + expert.last_name %></h3>
+              <p class="text-gray-600"><%= expert.salutation + " " + expert.title + " " + expert.first_name + " " + expert.last_name + ", Stundensatz: " + number_with_precision(expert.hourly_rate / 100.0, precision: 2, separator: ",", delimiter: ".") + " €, Tagessatz:  " + number_with_precision(expert.daily_rate / 100.0,precision: 2, separator: ",", delimiter: ".") + " €"%></p>
+              <%= link_to "Details", expert, class: "mt-2 bg-custom-red hover:bg-custom-hover-red text-white p-2 border-0 rounded-md cursor-pointer transition duration-300 ease-in-out w-auto" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

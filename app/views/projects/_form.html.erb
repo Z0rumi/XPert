@@ -1,0 +1,97 @@
+<%= form_with(model: project, class: "contents") do |form| %>
+  <% if project.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2>Projekt konnte nicht erstellt werden. Bitte alle Pflichtfelder überprüfen.</h2>
+    </div>
+  <% end %>
+
+  <h2 class="text-center text-gray-500 mb-12 text-1xl">Bitte füllen Sie das Formular aus.</h2>
+  
+  <div class="my-5">
+      <%= form.label :project_name, "Projektbezeichnung *", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.text_field :project_name, autofocus: true, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red" %>
+  </div>
+
+    
+  <div class="my-5 flex justify-center">
+    <div class="w-[45%] mr-[10%]">
+      <%= form.label :project_type, "Projekttyp", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.collection_select :project_type, @project_types, :to_s, :to_s, { include_blank: 'Bitte wählen...' }, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red", id: "Projekttyp" %>
+    </div>
+    <div class="w-[45%]">
+      <%= form.label :client, "Auftraggeber", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.text_field :client, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red" %>
+    </div>
+  </div>
+
+    
+  <div class="my-5">
+    <%= form.label :main_topics, "Themenschwerpunkte", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_field :main_topics, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red" %>
+  </div>
+
+    
+  <div class="my-5 flex justify-center">
+    <div class="w-[45%] mr-[10%]">
+      <%= form.label :start_date, "Startdatum", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.date_field :start_date, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red" %>
+    </div>
+    <div class="w-[45%]">
+      <%= form.label :end_date, "Enddatum", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.date_field :end_date, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red" %>
+    </div>
+  </div>
+
+    
+  <div class="my-5">
+    <%= form.label :location, "Durchführungsort", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_field :location, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red" %>
+  </div>
+
+   
+  <div class="my-5"data-controller="tag-selector-with-info" data-tag-selector-with-info-param-name="project[expert_ids][]">
+    <label for="expert_select" class="block text-sm font-medium text-gray-700">
+      Eingesetzte Experten
+    </label>
+
+    <select id="expert_select" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-custom-red focus:border-custom-red" data-tag-selector-with-info-target="select">
+      <option value="">Bitte wählen...</option>
+      <% @experts.each do |expert| %>
+        <option value="<%= expert.id %>" data-url="<%= expert_show_modal_path(expert.id) %>">
+          <%= truncate("#{expert.salutation} #{expert.title} #{expert.first_name} #{expert.last_name}", length: 50) %> - 
+          <%= truncate(expert.categories.map(&:name).join(', '), length: 50) %> - 
+          <%= expert.hourly_rate %> € -
+          <%= expert.daily_rate %> €
+        </option>
+      <% end %>
+    </select>
+
+    <div id="selected-experts" class="mt-2 flex flex-wrap" data-tag-selector-with-info-target="selectedTags">
+      <input type="hidden" name="project[expert_ids][]" value="">
+
+      <% @project.experts.each do |expert| %>
+        <span data-id="<%= expert.id %>" class="tag flex items-center bg-blue-200 text-blue-800 px-2 py-1 rounded mr-2 mt-1">
+          <div>
+            <%= link_to expert_show_modal_path(expert.id), data: { turbo_frame: "show_modal" } do %>
+              <%= image_tag('info_icon_white.png', class: 'w-4 h-4', alt: 'Info icon') %>
+            <% end %>
+          </div>
+          <div class="ml-2">
+            <%= "#{expert.salutation} #{expert.title} #{expert.first_name} #{expert.last_name}" %> -
+            <%= truncate(expert.categories.map(&:name).join(', '), length: 50) %> -
+            <%= expert.hourly_rate %> € -
+            <%= expert.daily_rate %> €
+          </div>
+          <button type="button" class="remove-tag text-red-500 hover:text-red-700">
+            &times;
+          </button>
+        </span>
+        <input type="hidden" name="project[expert_ids][]" value="<%= expert.id %>" class="expert-input">
+      <% end %>
+    </div>
+  </div>
+   
+  <div class="text-center">
+    <%= form.submit "#{button_text}", class: "mt-4 w-1/2 bg-custom-red hover:bg-custom-hover-red text-white font-bold p-4 text-lg border-0 rounded-md cursor-pointer transition duration-300 ease-in-out" %>
+  </div>
+<% end %>

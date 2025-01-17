@@ -1,0 +1,63 @@
+<%= turbo_frame_tag "show_modal" do %>
+  <div class="modal fixed z-10 p-8 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-auto bg-white rounded shadow-lg mx-auto md:w-1/2 w-full flex relative">
+    <%= link_to "#", data: {
+      controller: "show-modal",
+      action: "show-modal#close"
+    }, class: "absolute top-0 right-0 m-2 bg-custom-red text-white font-bold rounded-full h-8 w-8 flex items-center justify-center" do %>
+      ×
+    <% end %>
+
+    <div class="mx-auto">
+      <h1 class="text-center font-bold text-3xl mb-12"><%= @expert.salutation %> <%= @expert.title %> <%= @expert.first_name %> <%= @expert.last_name %></h1>
+      
+      <div>
+        <p><strong>Email:</strong> <%= truncate(@expert.email, length: 50, separator: ' ') %></p>
+        <p><strong>Staatsangehörigkeit:</strong> <%= truncate(@expert.nationality, length: 50, separator: ' ') %></p>
+      </div>
+
+      <div>
+        <p><strong>Standort:</strong> <%= truncate(@expert.location, length: 50, separator: ' ') %></p>
+        <p><strong>Telefonnummer:</strong> <%= truncate(@expert.phone_number, length: 50, separator: ' ') %></p>
+      </div>
+
+      <div>
+        <p><strong>Stundensatz:</strong> <%= number_with_delimiter(@expert.hourly_rate, delimiter: ".") %> €</p>
+        <p><strong>Tagessatz:</strong> <%= number_with_delimiter(@expert.daily_rate, delimiter: ".") %> €</p>
+      </div>
+      
+      <div>
+        <p><strong>Kommunikationssprache:</strong> <%= truncate(@expert.communication_languages&.join(", "), length: 50, separator: ' ') %></p>
+        <p><strong>Unterrichtssprache:</strong> <%= truncate(@expert.teaching_languages&.join(", "), length: 50, separator: ' ') %></p>
+      </div>
+      
+      <div>
+        <p><strong>Verfügbarkeit - Wie kurzfristig dürfen wir Sie vor einer Veranstaltung kontaktieren?:</strong> <%= truncate(@expert.availability, length: 50, separator: ' ') %></p>
+        <p><strong>Reisebereitschaft:</strong> <%= truncate(@expert.travel_willingnesses&.join(", "), length: 50, separator: ' ') %></p>    
+      </div>
+
+      <div>
+        <p><strong>Anmerkungen zur Reisebereitschaft:</strong> <%= truncate(@expert.remark_travel_willingness, length: 50, separator: ' ') %></p>
+        <p><strong>Chinabezug/Chinaerfahrung:</strong> <%= truncate(@expert.china_experience, length: 50, separator: ' ') %></p>
+      </div>
+
+      <div>
+        <p><strong>Themen-/Fachgebiete:</strong> <%= truncate(@expert.categories.map(&:name).join(", "), length: 50, separator: ' ') %></p>
+        <p><strong>Weitere Themen-/Fachgebiete:</strong> <%= truncate(@expert.categories.map(&:name).join(", "), length: 50, separator: ' ') %></p>
+      </div>
+
+      <div>
+        <p><strong>Angehörige Institution:</strong></p>
+        <p><strong>Welcher Institution / welchem Unternehmen gehören Sie an?:</strong> <%= truncate(@expert.institution, length: 50, separator: ' ') %></p>
+      </div>
+      
+      <div>
+        <p><strong>Kooperationsmöglichkeiten:</strong> <%= truncate(@expert.cooperation_opportunity, length: 50, separator: ' ') %></p>
+        <p><strong>Kursmodule:</strong> <%= truncate(@expert.course_modules.map(&:name).join(", "), length: 50, separator: ' ') %></p>
+      </div>
+      
+      <div>
+        <p><strong>Anmerkungen:</strong> <%= truncate(@expert.remarks, length: 50, separator: ' ') %></p>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,163 @@
+<div class="w-full h-full"> 
+  <h1 class="text-center font-bold text-4xl mb-12"><%= @expert.salutation + " " + @expert.title + " " + @expert.first_name + " " + @expert.last_name %></h1>
+
+  <div class="flex justify-between mt-4">
+      <% if !current_user.intern? %>
+        <%= link_to edit_expert_path(@expert) do %>
+          <button type="button" class="mb-4 bg-custom-red hover:bg-custom-hover-red text-white font-bold p-4 text-center border-0 rounded-md cursor-pointer transition duration-300 ease-in-out">
+            Profil bearbeiten
+          </button>
+        <% end %>
+      <% end %>
+
+      <!-- LÖSCHEN BUTTON -->
+      <% if current_user.staff? || current_user.admin? %>
+        <%= render "layouts/delete_modal", delete_button_text: "Expert*in löschen", modal_title: "Sind Sie sicher, dass Sie diese/n Expert*in löschen möchten?", delete_path: expert_path(@expert), delete_button_classes: "mb-4 bg-custom-red hover:bg-custom-hover-red text-white font-bold p-4 text-center border-0 rounded-md cursor-pointer transition duration-300 ease-in-out" %>
+      <% end %>
+  </div>
+
+  <div class="flex flex-wrap gap-4"> 
+    <div class="w-full flex flex-wrap gap-4"> 
+      <div id="expert_personal_details_container" class="flex-1 bg-white border border-gray-300 shadow-md p-6 rounded-lg mb-4">
+        <h1 class="text-center font-bold text-2xl mb-4">Persönliche Daten</h1>
+        <div>
+          <p><strong>Email:</strong></p>
+          <p class="max-w-[40ch] break-words mb-4"><%= @expert.email %></p>
+          <p><strong>Staatsangehörigkeit:</strong></p>
+          <p class="max-w-[40ch] break-words mb-4"><%= @expert.nationality %></p>
+          <p><strong>Standort:</strong></p>
+          <p class="max-w-[40ch] break-words mb-4"><%= @expert.location %></p>
+          <p><strong>Telefonnummer:</strong></p>
+          <p class="max-w-[40ch] break-words mb-4"><%= @expert.phone_number %></p>
+          <p><strong>Chinabezug:</strong></p>
+          <p class="max-w-[40ch] break-words mb-4"><%= @expert.china_experience %></p>  
+        </div>
+      </div>
+
+      <div id="expert_categories_container" class="flex-1 bg-white border border-gray-300 shadow-md p-6 rounded-lg flex flex-col ml-4 mb-4">
+        <h1 class="text-center font-bold text-2xl mb-4">Expertise</h1>
+        <div>
+          <p><strong>Themen-/Fachgebiete:</strong></p>
+          <div class="flex flex-wrap">
+            <% @expert.categories.each do |category| %>
+              <span data-id="<%= category.id %>" class="tag flex items-center bg-blue-200 text-blue-800 px-2 py-1 rounded mr-2 mt-2">
+                <%= category.name %>
+              </span>
+            <% end %>
+          </div>
+          <p><strong>Weitere Themen-/Fachgebiete:</strong></p>
+          <p class="max-w-[40ch] break-words mb-4"><%= @expert.extra_category %></p>
+          <p><strong>Kursmodule:</strong></p>
+          <div class="flex flex-wrap">
+            <% @expert.course_modules.each do |course_module| %>
+              <span data-id="<%= course_module.id %>" class="tag flex items-center bg-blue-200 text-blue-800 px-2 py-1 rounded mr-2 mt-2">
+                <div>
+                  <%= link_to course_module, data: { turbo_frame: "show_modal" } do %>
+                    <%= image_tag('info_icon_white.png', class: 'w-4 h-4 flex-shrink-0') %>
+                  <% end %>
+                </div>
+                <div class="ml-[5px]">
+                  <%= course_module.name %>
+                </div>
+              </span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div id="expert_travel_container" class="flex-1 bg-white border border-gray-300 shadow-md p-6 rounded-lg flex flex-col ml-4 mb-4">
+        <h1 class="text-center font-bold text-2xl mb-4">Reisen</h1>
+        <div>
+          <p><strong>Verfügbarkeit:</strong></p>
+          <p class="max-w-[40ch] break-words mb-4"><%= @expert.availability %></p>
+          <p><strong>Reisebereitschaft:</strong></p>
+          <div class="flex flex-wrap">
+            <% @expert.travel_willingnesses.each do |language| %>
+              <span data-id="<%= language %>" class="tag flex items-center bg-blue-200 text-blue-800 px-2 py-1 rounded mr-2 mt-2">
+                <%= language %>
+              </span>
+              <input type="hidden" name="expert[travel_willingnesses][]" value="<%= language %>" class="category-input">
+            <% end %>
+          </div>
+          <p><strong>Anmerkungen:</strong></p>
+          <p class="max-w-[40ch] break-words mb-4"><%= @expert.remark_travel_willingness %></p>
+        </div>
+      </div> 
+    </div>
+
+    <div class="w-full flex flex-wrap gap-4"> 
+      <div id="expert_wages_container" class="flex-1 bg-white border border-gray-300 shadow-md p-6 rounded-lg mb-4">
+        <h1 class="text-center font-bold text-2xl mb-4">Gehalt</h1>
+        <div>
+          <p><strong>Stundensatz:</strong></p>
+          <p class="max-w-[40ch] break-words mb-4"><%= number_with_precision(@expert.hourly_rate / 100.0, precision: 2) %> €</p>
+          <p><strong>Tagessatz:</strong></p>
+          <p class="max-w-[40ch] break-words mb-4"><%= number_with_precision(@expert.daily_rate / 100.0, precision: 2) %> €</p>
+        </div>
+      </div>
+      
+      <div id="expert_language_details_container" class="flex-1 bg-white border border-gray-300 shadow-md p-6 rounded-lg ml-4 mb-4">
+          <h1 class="text-center font-bold text-2xl mb-4">Sprachen</h1>
+          <div>
+            <p><strong>Kommunikationssprache:</strong></p>
+            <div class="flex flex-wrap">
+              <% @expert.communication_languages.each do |language| %>
+                  <span data-id="<%= language %>" class="tag flex items-center bg-blue-200 text-blue-800 px-2 py-1 rounded mr-2 mt-2">
+                    <%= language %>
+                  </span>
+                  <input type="hidden" name="expert[communication_languages][]" value="<%= language %>" class="category-input">
+              <% end %>
+            </div>
+            
+            <p><strong>Unterrichtssprache:</strong></p>
+            <div class="flex flex-wrap">
+            <% @expert.teaching_languages.each do |language| %>
+              <span data-id="<%= language %>" class="tag flex items-center bg-blue-200 text-blue-800 px-2 py-1 rounded mr-2 mt-2">
+                <%= language %>
+              </span>
+              <input type="hidden" name="expert[teaching_languages][]" value="<%= language %>" class="category-input">
+            <% end %>
+            </div>
+          </div>
+      </div>
+
+      <div id="expert_institution_container" class="flex-1 bg-white border border-gray-300 shadow-md p-6 rounded-lg flex flex-col ml-4 mb-4">
+        <h1 class="text-center font-bold text-2xl mb-4">Institution</h1>
+        <div>
+          <p><strong>Angehörige Institution:</strong></p>
+          <p class="max-w-[40ch] break-words mb-4"><%= @expert.institution %></p>
+          <p><strong>Kooperationsmöglichkeiten:</strong></p>
+          <p class="max-w-[40ch] break-words mb-4"><%= @expert.cooperation_opportunity %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-full flex flex-wrap gap-4"> 
+      <div id="expert_misc_container" class="flex-1 bg-white border border-gray-300 shadow-md p-6 rounded-lg flex flex-col mb-4">
+        <h1 class="text-center font-bold text-2xl mb-4">Sonstiges</h1>
+        <div>
+          <p><strong>Anmerkungen:</strong></p>
+          <p class="max-w-[40ch] break-words mb-4"><%= @expert.remarks %></p>
+        </div>
+      </div>
+
+      <div id="expert_cv_container" class="flex-1 bg-white border border-gray-300 shadow-md p-6 rounded-lg flex flex-col ml-4 mb-4">
+        <h1 class="text-center font-bold text-2xl mb-4">Lebenslauf</h1>
+        <% if @expert.cv.attached? %>
+        <div class="flex w-full items-center bg-white border border-gray-300 shadow-md p-1.5 rounded-lg mb-2">
+          <div class="flex-1 text-blue-600 underline">
+              <span class="mr-2"><%= link_to @expert.cv.filename.to_s, rails_blob_path(@expert.cv, disposition: "inline") %></span>
+          </div>
+          <%= link_to rails_blob_path(@expert.cv, disposition: "attachment"), class: "hover:opacity-75", title: "Dokument herunterladen" do %>
+            <%= image_tag 'download_icon.png', alt: 'Download Document', class: "h-4 w-4" %>
+          <% end %>
+        </div>
+        <% else %>
+          <p class="flex items-center">
+            <span class="text-gray-500">Kein Lebenslauf hochgeladen.</span>
+          </p>
+        <% end %>   
+      </div>
+    </div>
+  </div>
+</div>

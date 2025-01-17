@@ -1,0 +1,54 @@
+# config/locales/de.yml
+
+de:
+  activerecord:
+    attributes:
+      user:
+        email: "E-Mail"
+        password: "Passwort"
+        password_confirmation: "Passwortbestätigung"
+        current_password: "Aktuelles Passwort"
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              taken: "ist bereits vergeben."
+              blank: "darf nicht leer sein."
+              invalid: "ist ungültig."
+            password:
+              too_short: "ist zu kurz (mindestens %{count} Zeichen erforderlich)."
+              blank: "darf nicht leer sein."
+            current_password:
+              invalid: "ist ungültig."
+              blank: "nicht leer sein."
+            password_confirmation:
+              confirmation: "stimmt nicht überein."
+              blank: "darf nicht leer sein."
+      messages:
+        confirmation: "stimmt nicht überein."
+        too_short: "ist zu kurz (mindestens %{count} Zeichen erforderlich)."
+        taken: "ist bereits vergeben."
+        blank: "darf nicht leer sein."
+  
+  errors:
+    attributes:
+      password_confirmation:
+        confirmation: "stimmt nicht überein."
+    messages:
+      confirmation: "stimmt nicht überein."
+      too_short: "ist zu kurz (mindestens %{count} Zeichen erforderlich)."
+      taken: "ist bereits vergeben."
+      blank: "darf nicht leer sein."
+  
+  support:
+    array:
+      words_connector: ", "
+      two_words_connector: " und "
+      last_word_connector: " und "
+
+  roles:
+    expert: "Experte"
+    intern: "Praktikant"
+    staff: "Mitarbeiter"
+    admin: "Admin"

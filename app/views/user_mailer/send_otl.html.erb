@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            body {
+                text-align: center;
+                font-family: Arial, sans-serif;
+                color: #333;
+                margin: 0;
+                padding: 0;
+            }
+
+            .email-container {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                text-align: center;
+            }
+
+            .button {
+                display: inline-block;
+                padding: 12px 24px;
+                font-size: 16px;
+                color: #ffffff !important; /* Weißer Text */
+                background-color: #d40031; /* Hintergrundfarbe */
+                text-decoration: none; /* Entfernt Unterstreichung */
+                border-radius: 5px;
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="email-container">
+          <h2>Ihre Registrierung bei XPert</h2>
+          <p>Hallo!</p>
+          <p>
+            Sie wurden eingeladen, sich bei XPert zu registrieren. </br>
+            Klicken Sie auf den folgenden Knopf, um Ihr Konto zu erstellen:
+          </p>
+          <p>
+            <a href="<%= @register_url %>" class="button">Konto erstellen</a>
+          </p>
+          <p>Mit freundlichen Grüßen,<br>Ihr XPert Team</p>
+        </div>
+    </body>
+</html>

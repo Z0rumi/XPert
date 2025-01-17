@@ -1,0 +1,2 @@
+json.extract! expert, :id, :salutation, :title, :first_name, :last_name, :nationality, :phone_number, :email, :location, :communication_languages, :teaching_languages, :hourly_rate, :daily_rate, :travel_willingnesses, :availability, :china_experience, :extra_category, :remark_travel_willingness, :institution, :cooperation_opportunity, :institution_association, :remarks, :created_at, :updated_at
+json.url expert_url(expert, format: :json)

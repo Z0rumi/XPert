@@ -1,0 +1,48 @@
+<div class="w-full">
+  <h1 class="text-center font-bold text-3xl mb-12"><%= expert.salutation %> <%= expert.title %> <%= expert.first_name %> <%= expert.last_name %></h1>
+
+
+  <div class="space-y-4 text-lg mb-4">
+    <p><strong>Email:</strong> <%= expert.email %></p>
+    <p><strong>Staatsangehörigkeit:</strong> <%= expert.nationality %></p>
+    <p><strong>Standort:</strong> <%= expert.location %></p>
+    <p><strong>Telefonnummer:</strong> <%= expert.phone_number %></p>
+    <p><strong>Stundensatz:</strong> <%= number_with_precision(expert.hourly_rate / 100.0, precision: 2, separator: ",", delimiter: ".") %> € </p>
+    <p><strong>Tagessatz:</strong> <%= number_with_precision(expert.daily_rate / 100.0,precision: 2, separator: ",", delimiter: ".") %> € </p>
+    <p><strong>Kommunikationssprache:</strong> <%= expert.communication_languages&.join(", ") %></p>
+    <p><strong>Unterrichtssprache:</strong> <%= expert.teaching_languages&.join(", ") %></p>
+    <p><strong>Verfügbarkeit - Wie kurzfristig dürfen wir Sie vor einer Veranstaltung kontaktieren?:</strong> <%= expert.availability %></p>
+    <p><strong>Reisebereitschaft:</strong> <%= expert.travel_willingnesses&.join(", ") %></p>    
+    <p><strong>Anmerkungen zur Reisebereitschaft:</strong> <%= expert.remark_travel_willingness %></p>
+    <p><strong>Chinabezug/Chinaerfahrung:</strong> <%= expert.china_experience %></p>
+    <p><strong>Themen-/Fachgebiete:</strong> <%= expert.categories.map(&:name).join(", ") %></p>
+    <p><strong>Weitere Themen-/Fachgebiete:</strong> <%= expert.extra_category %></p>
+    <% if expert.institution_association == true %>
+      <p><strong>Angehörige Institution:</strong> <%= expert.institution %></p>
+    <% end %>
+    <% if expert.institution_association == true %>
+      <p><strong>Kooperationsmöglichkeiten:</strong> <%= expert.cooperation_opportunity %></p>
+    <% end %>
+    <p><strong>Kursmodule:</strong> <%= expert.course_modules.map(&:name).join(", ") %></p>
+    <p><strong>Anmerkungen:</strong> <%= expert.remarks %></p>
+    <% if expert.cv.attached? %>
+      <p class="flex items-center">
+        <strong class="mr-2">Lebenslauf:</strong>
+        <span class="mr-2"><%= expert.cv.filename.to_s.downcase %></span>
+        
+        <%= link_to rails_blob_path(expert.cv, disposition: "inline"), target: "_blank", class: "flex items-center hover:opacity-75 mr-2", title: "Vorschau anzeigen" do %>
+          <%= image_tag 'eye_icon.png', alt: 'Show CV', class: "h-5 w-5" %>
+        <% end %>
+        
+        <%= link_to rails_blob_path(expert.cv, disposition: "attachment"), class: "flex items-center hover:opacity-75", title: "CV herunterladen" do %>
+          <%= image_tag 'download_icon.png', alt: 'Download CV', class: "h-4 w-4" %>
+        <% end %>
+      </p>
+    <% else %>
+      <p class="flex items-center">
+        <strong class="mr-2">Lebenslauf:</strong>
+        <span class="text-gray-500">Kein Lebenslauf hochgeladen.</span>
+      </p>
+    <% end %>
+  </div>
+</div>

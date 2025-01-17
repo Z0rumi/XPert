@@ -1,0 +1,26 @@
+<div class="flex items-center justify-center pt-5">
+  <div class="w-full bg-white p-8">
+    <h1 class="text-center font-bold text-3xl mb-12">Benutzerkonto bearbeiten</h1>
+
+    <div class="button-container flex justify-center">
+      <%= link_to "E-Mail ändern", edit_email_path, class: "w-1/4 mb-4 bg-custom-red hover:bg-custom-hover-red text-white font-bold p-4 text-center border-0 rounded-md cursor-pointer transition duration-300 ease-in-out" %>
+    </div>
+
+    <div class="button-container flex justify-center">
+      <%= link_to "Passwort ändern", edit_password_path, class: "w-1/4 mb-4 bg-custom-red hover:bg-custom-hover-red text-white font-bold p-4 text-center border-0 rounded-md cursor-pointer transition duration-300 ease-in-out" %>
+    </div>
+
+    <% if current_user.expert? %>
+      <div class="button-container flex justify-center">
+        <%= link_to "Benutzerkonto löschen", registration_path(resource_name),
+            data: { turbo_method: :delete, confirm: "Sind Sie sicher, dass Sie ihr Konto löschen möchten?" },
+            class: "w-1/4 bg-custom-red hover:bg-custom-hover-red text-white font-bold p-4 text-center border-0 rounded-md cursor-pointer transition duration-300 ease-in-out" %>
+      </div>
+    <% end %>
+
+
+    <div class="button-container">
+      <%= link_to "Zurück", root_path, class: "back-button actions flex justify-center mt-2 cursor-pointer" %>
+    </div>
+  </div>
+</div>
